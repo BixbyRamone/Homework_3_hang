@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+
+<div id="display"></div>
+<div id="attempts"></div>
+<div id="wins"></div>
+<div id="losses"></div>
+
+
+
+<script type="text/javascript">
+
+var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+        'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
+        't', 'u', 'v', 'w', 'x', 'y', 'z'];  
+  var wins = 0;
+  var losses = 0;
+  var list = ["orangutang", "elephant", "fox"];//, "otter", "tiger", "dog", "cat", "octopus", "stote", "macaque"
+  var guesses = 10;
+  var answer;
+  var userInput;
+  var displayedPuzzleInitial;
+  var displayedPuzzleCompare;
+  var display;
+  var remainingLetters;
+  var isFound = false;
+
+//selecting a random word from the array
+function runGame () {
+  for ( var i = 0; i < list.length; i++) {
+   answer = list[Math.floor(Math.random() * list.length)];
+}
+	//setting variable for determining win state
+	remainingLetters = answer.length;
+	// comparingLetters = list.indexOf();
+console.log(answer)
+	
+	//splitting the string from array in an array of its own answer = answer.split("");
+	displayedPuzzleInitial = answer.replace(/\w/g, "_");
+	displayedPuzzleCompare = answer.replace(/\w/g, "_");
+	answer = answer.split("");
+	displayedPuzzleInitial = displayedPuzzleInitial.split("");
+	displayedPuzzleCompare = displayedPuzzleCompare.split("");
+
+
+	//Display text for the game
+	document.querySelector("#display").innerHTML = "<div>" + displayedPuzzleInitial + "</div>";
+	document.querySelector("#attempts").innerHTML = "<div>Lives Left: " + guesses + "</div>";
+	document.querySelector("#wins").innerHTML = "<div>Wins: " + wins + "</div>";
+	document.querySelector("#losses").innerHTML = "<div>Wins: " + losses + "</div>";
+
+}
+
+runGame();
+
+	// console.log(answer)
+	// console.log(displayedPuzzle)
+
+//get user input run a loop afterwards
+	document.onkeyup = function( event ) {
+				userInput = event.key;
+
+
+  		for ( var i = 0; i < answer.length; i++) {
+  			if ( userInput === answer[i] ) {
+  				// var displayedPuzzleCompare = displayedPuzzleInitial.prototype.valueOf();
+  				
+
+          remainingLetters--;
+  				displayedPuzzleInitial[i] = userInput;
+
+          var initiate = JSON.stringify(displayedPuzzleInitial);
+          var compare = JSON.stringify(displayedPuzzleCompare);
+
+  				document.querySelector("#display").innerHTML = "<div>" + displayedPuzzleInitial + "</div>";
+
+  					if (initiate != compare) {
+  					
+  							isFound = true;
+
+  				displayedPuzzleCompare = displayedPuzzleInitial;
+  				remainingLetters--;
+
+  				// console.log(displayedPuzzleInitial)
+  				
+
+  				if ( remainingLetters <= 0) {
+  					document.querySelector("#display").innerHTML = "<div>" + displayedPuzzleInitial + "</div><div>YOU WIN!!</div>"; 
+  					wins++;
+  						document.querySelector("#wins").innerHTML = "<div>Wins: " + wins + "</div>";
+              runGame();
+
+  				}
+
+				}
+				else {isFound = false;}
+
+  			}		// remainingLetters--;
+		
+  			}
+
+  			if ( isFound == false )  {
+  				guesses = guesses - 1;
+  				document.querySelector("#attempts").innerHTML = "<div>Lives Left: " + guesses + "</div>";
+
+  				console.log(guesses)
+
+  				if (guesses <= 0) {
+  					losses++;
+  						document.querySelector("#losses").innerHTML = "<div>Losses: " + losses + "</div>";
+              runGame();
+
+  				}
+  			}
+
+  		}
+  			
+  			// console.log(userInput)
+</script>
+
+</body>
+</html>
